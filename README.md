@@ -2,9 +2,12 @@
 
 Analyze credit card customer attrition with Python and SQL, then extend the analysis into a predictive model and a Power BI report.
 
-**Status:** Exploratory analysis and SQL segmentation completed in the notebook. Predictive modeling and Power BI reporting are planned.
+**Status:** Exploratory analysis and SQL segmentation are complete. Model inputs, a stratified train/test split, and categorical encoding are prepared. Logistic regression training, model evaluation, and Power BI reporting are next.
 
-[Open analysis notebook](01_data_analysis.ipynb) · [Run in Google Colab](https://colab.research.google.com/github/mehakgupta0406/credit-card-customer-churn/blob/main/01_data_analysis.ipynb)
+| Notebook | Contents | Open |
+| --- | --- | --- |
+| [01_data_analysis.ipynb](01_data_analysis.ipynb) | Data checks, preparation, charts, and SQL segmentation | [Google Colab](https://colab.research.google.com/github/mehakgupta0406/credit-card-customer-churn/blob/main/01_data_analysis.ipynb) |
+| [02_model_training.ipynb](02_model_training.ipynb) | Model inputs, train/test split, and one-hot encoding | [Google Colab](https://colab.research.google.com/github/mehakgupta0406/credit-card-customer-churn/blob/main/02_model_training.ipynb) |
 
 ## Business objective
 
@@ -13,7 +16,7 @@ Identify customer characteristics and account activity patterns associated with 
 The analysis addresses:
 - How common is churn?
 - How do transaction activity and inactivity differ between existing and attrited customers?
-- How does churn vary by card category, product count, contact frequency, and credit utilization?
+- How does churn vary by card category, product count, contact frequency, and credit utilization, and account tenure?
 
 ## Dataset
 
@@ -35,7 +38,7 @@ The derived target, `Churn`, is **1 for attrited customers** and **0 for existin
 | Python and pandas | Data inspection, preparation, and analysis |
 | Matplotlib | Comparison charts |
 | SQLite and SQL | Customer segmentation and churn-rate calculations |
-| scikit-learn — planned | Model training and evaluation |
+| scikit-learn | Train/test splitting and categorical encoding; model training and evaluation planned |
 | Power BI — planned | Interactive reporting |
 
 ## Analysis completed
@@ -46,7 +49,21 @@ The derived target, `Churn`, is **1 for attrited customers** and **0 for existin
 - Created the binary churn target.
 - Plotted average transaction count, transaction amount, and inactive months by customer status.
 - Loaded the prepared data into a SQLite `customers` table.
-- Used SQL to calculate customer counts, churn counts, and churn rates across five segmentation dimensions.
+- Used SQL to calculate customer counts, churn counts, and churn rates across six segmentation dimensions, including account tenure.
+
+## Modeling preparation completed
+
+The modeling notebook loads `bank_churn_prepared.csv`, containing 10,127 rows and 22 columns after removing the two supplied classifier outputs and adding `Churn`.
+
+- Separated **19 input features** from the binary churn target.
+- Excluded `CLIENTNUM`, `Attrition_Flag`, and `Churn` from the input features.
+- Created a stratified **80/20 split** with `random_state=42`: **8,101 training customers** and **2,026 test customers**.
+- Identified **14 numerical** and **5 categorical** input columns.
+- Applied `OneHotEncoder(handle_unknown="ignore")` to categorical columns and passed numerical columns through unchanged.
+- Fitted the encoder on training data only and reused it to transform the test set.
+- Produced **37 encoded input features** in each set.
+
+No trained model or performance metrics are included in the uploaded modeling notebook yet.
 
 ## Key findings
 
@@ -60,17 +77,25 @@ The derived target, `Churn`, is **1 for attrited customers** and **0 for existin
 
 These findings describe associations. They do not establish the causes of churn or prove that a retention action will work.
 
-## Run the notebook
+## Run the notebooks
 
 1. Download and unzip `BankChurners.csv` from the dataset source.
 2. Open `01_data_analysis.ipynb` in Jupyter or Google Colab.
 3. Place the CSV in the notebook's working directory. In Colab, upload it to the session's Files panel.
-4. Run the cells from top to bottom.
+4. Run the analysis cells from top to bottom.
+5. At the end of the analysis notebook, export the prepared data:
+
+```python
+df.to_csv("bank_churn_prepared.csv", index=False)
+```
+
+6. Open `02_model_training.ipynb` and place the exported CSV in its working directory. For separate Colab sessions, download the prepared CSV from the analysis session and upload it to the modeling session.
+7. Run the modeling cells from top to bottom.
 
 For a local environment:
 
 ```bash
-pip install pandas matplotlib jupyter jinja2
+pip install pandas matplotlib scikit-learn jupyter jinja2
 jupyter notebook
 ```
 
@@ -78,8 +103,8 @@ SQLite support is included with Python. The notebook creates `customer_churn.db`
 
 ## Next steps
 
-- Build preprocessing and modeling pipelines, excluding `CLIENTNUM` and `Attrition_Flag` from model inputs.
-- Compare a logistic regression baseline with a tree-based classifier.
+- Add feature scaling and train a logistic regression baseline using training data only.
+- Compare the baseline with a tree-based classifier.
 - Evaluate on a held-out test set using precision, recall, and precision–recall metrics, alongside accuracy.
 - Generate customer risk scores and prepare report tables.
 - Build a Power BI report covering historical churn, customer segments, and model results.
