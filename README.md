@@ -86,8 +86,6 @@ SQLite support is included with Python. The notebook creates `customer_churn.db`
 
 ## Limitations
 
-This is an independent portfolio project using public data, not verified American Express or Barclays customer data.
-
 The dataset is a customer snapshot without a dated sequence of outcomes. It supports retrospective churn classification, but cannot verify whether currently existing customers later leave or establish a specific future prediction window.
 
 The classes are imbalanced: predicting every customer as existing would achieve 83.93% accuracy while detecting no churners. Model evaluation must account for this. Retention impact would require a separate experiment.
