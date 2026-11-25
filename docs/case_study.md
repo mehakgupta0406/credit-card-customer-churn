@@ -52,7 +52,7 @@ The primary comparison would be the difference in future churn rates between con
 ## Deliverables and current scope
 
 - [Python and SQL analysis](../01_data_analysis.ipynb)
-- [Power BI dashboard](../powerbi/Credit_Card_Churn_Dashboard.pbix), [usage guide](../powerbi/README.md), and [DAX measures](../powerbi/measures.dax)
+- [Power BI dashboard](../powerbi/Credit_Card_Churn_Dashboard.pbix), [preview](../powerbi/images/churn_overview.png), [static PDF](../powerbi/Churn_Overview.pdf), [usage guide](../powerbi/README.md), and [DAX measures](../powerbi/measures.dax)
 - [SQL evidence for retention segments](../sql/retention_segments.sql)
 - [Model preparation](../02_model_training.ipynb): stratified split and categorical encoding
 

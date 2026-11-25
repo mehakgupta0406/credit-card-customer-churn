@@ -2,6 +2,12 @@
 
 [Download the Power BI report](Credit_Card_Churn_Dashboard.pbix)
 
+![All-customer churn overview](images/churn_overview.png)
+
+[Full-size image](images/churn_overview.png) · [Static PDF](Churn_Overview.pdf)
+
+The image and PDF were exported from Power BI Desktop with all slicers cleared. They provide a preview without requiring Power BI; interactive filters and tooltips require the PBIX.
+
 The **Churn overview** page explores historical credit card customer attrition. It uses the prepared dataset of 10,127 customers and 22 columns from the Python analysis. The imported table is named `Customers`. Customer IDs are stored as text, count fields as whole numbers, and ratios and decimal-valued fields as decimal numbers.
 
 ## Open the report
@@ -34,11 +40,7 @@ The first four measures appear as KPI cards. The two average measures are availa
 The PBIX retains its original local CSV source path. Update that path before refreshing:
 
 1. Download `BankChurners.csv` from the [original Kaggle dataset](https://www.kaggle.com/datasets/sakshigoyal7/credit-card-customers).
-2. Run [01_data_analysis.ipynb](../01_data_analysis.ipynb) and export the prepared dataframe:
-
-   ```python
-   df.to_csv("bank_churn_prepared.csv", index=False)
-   ```
+2. Run [01_data_analysis.ipynb](../01_data_analysis.ipynb) through its final cell, which automatically exports `bank_churn_prepared.csv`.
 
 3. In Power BI Desktop, choose **Home → Transform data → Data source settings**.
 4. Select the CSV source, choose **Change Source**, and browse to your `bank_churn_prepared.csv`.
