@@ -6,6 +6,8 @@ Analyze credit card customer attrition with Python and SQL, explore customer seg
 
 **Power BI dashboard:** [Download the report](powerbi/Credit_Card_Churn_Dashboard.pbix) · [Opening and refresh instructions](powerbi/README.md) · [DAX measures](powerbi/measures.dax)
 
+**Portfolio case study:** [Business findings, recommendations, and evaluation plan](docs/case_study.md) · [Supporting SQL](sql/retention_segments.sql)
+
 | Notebook | Contents | Open |
 | --- | --- | --- |
 | [01_data_analysis.ipynb](01_data_analysis.ipynb) | Data checks, preparation, charts, and SQL segmentation | [Google Colab](https://colab.research.google.com/github/mehakgupta0406/credit-card-customer-churn/blob/main/01_data_analysis.ipynb) |
@@ -99,6 +101,14 @@ No trained model or performance metrics are included in the uploaded modeling no
 | Inactivity | Churn increases from 4.48% at one inactive month to 29.89% at four, then declines. | Inactivity alone does not explain churn. The zero-month group has only 29 customers. |
 
 These findings describe associations. They do not establish the causes of churn or prove that a retention action will work.
+
+## Business recommendations
+
+- **Investigate low engagement.** Customers below 25% credit utilization account for 1,232 churners, or 75.72% of all observed churn. Research service or onboarding barriers before proposing an intervention.
+- **Audit contact timing.** Review the six-contact group and collect contact reasons, resolution status, and dates relative to closure before treating contact frequency as an early churn signal.
+- **Balance rate with volume.** Blue cardholders account for 93.36% of churn volume, while Platinum contributes five churners. Investigate behavioral subsegments within the large Blue population rather than prioritizing a small group solely for its high rate.
+
+These are proposed actions. Their retention impact would need to be tested on a new cohort with a defined future churn window and a control group. See the [case study](docs/case_study.md) for the evidence, evaluation measures, and limitations. Segment populations overlap and should not be summed.
 
 ## Run the notebooks
 
